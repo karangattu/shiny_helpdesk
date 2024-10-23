@@ -5,12 +5,55 @@ import uuid
 
 
 def set_multiline_output(name, value):
-    env_file = os.getenv('GITHUB_ENV')
+    env_file = os.getenv("GITHUB_ENV")
     with open(env_file, "a") as fh:
         delimiter = uuid.uuid1()
         print(f"{name}<<{delimiter}", file=fh)
         print(value, file=fh)
         print(delimiter, file=fh)
+
+
+def format_as_markdown(content):
+    # Split the content into lines
+    lines = content.split("\n")
+
+    # Initialize variables
+    formatted_lines = []
+    in_code_block = False
+
+    for line in lines:
+        # Check for the start of a code block
+        if line.strip().startswith("app.py"):
+            formatted_lines.append("```python")
+            in_code_block = True
+            continue
+
+        # Check for the end of a code block
+        if line.strip() == "Run app →":
+            if in_code_block:
+                formatted_lines.append("```")
+                in_code_block = False
+            formatted_lines.append(line)
+            continue
+
+        # Format headers
+        if (
+            line.strip().startswith("Basic")
+            or line.strip().startswith("Layout")
+            or line.strip().startswith("Collapsible")
+        ):
+            formatted_lines.append(f"## {line.strip()}")
+            continue
+
+        # Add the line as is
+        formatted_lines.append(line)
+
+    # Ensure the last code block is closed if necessary
+    if in_code_block:
+        formatted_lines.append("```")
+
+    # Join the formatted lines
+    return "\n".join(formatted_lines)
 
 
 def run(playwright: Playwright):
@@ -37,10 +80,8 @@ Also, let them know these answers are AI generated and can have errors. -
     # remove Run app → from last_message_content
     last_message_content = last_message_content.replace("Run app →", "").strip()
     # add ```python in the line after app.py
-    last_message_content = last_message_content.replace("app.py", "app.py\n```\n")
-    # add ``` in the end after app = App(app_ui, server)
-    last_message_content = last_message_content.replace("app = App(app_ui, server)", "app = App(app_ui, server)\n```\n")
-    set_multiline_output("RESPONSE", last_message_content)
+    formatted_content = format_as_markdown(last_message_content)
+    set_multiline_output("RESPONSE", formatted_content)
     browser.close()
 
 
