@@ -1,6 +1,15 @@
 from playwright.sync_api import sync_playwright, Playwright
 import time
 import os
+import uuid
+
+
+def set_multiline_output(name, value):
+    with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+        delimiter = uuid.uuid1()
+        print(f"{name}<<{delimiter}", file=fh)
+        print(value, file=fh)
+        print(delimiter, file=fh)
 
 
 def run(playwright: Playwright):
@@ -23,8 +32,7 @@ Also, let them know these answers are AI generated and can have errors -
     message_contents = page.query_selector_all(".message-content")
     last_message_content = message_contents[-1].text_content()
     print(last_message_content)
-    with open(os.environ['GITHUB_OUTPUT'], 'w') as f:
-        print(f"response={last_message_content}", file=f)
+    set_multiline_output("response", last_message_content)
     browser.close()
 
 
