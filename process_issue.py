@@ -78,8 +78,8 @@ Also, let them know these answers are AI generated and can have errors. -
     message_contents = page.query_selector_all(".message-content")
     last_message_content = message_contents[-1].text_content()
     formatted_content = format_as_markdown(last_message_content)
-    # remove Run app → from last_message_content
-    last_message_content = formatted_content.replace("Run app →", "→").strip()
+    # remove Run app → from formatted_content
+    formatted_content = formatted_content.replace("Run app →", "")
     # write it to a file
     with open("output.md", "w") as f:
         f.write(formatted_content)
