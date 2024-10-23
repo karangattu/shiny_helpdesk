@@ -6,6 +6,7 @@ on:
 
 jobs:
   greet-issue-creator:
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
