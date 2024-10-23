@@ -5,6 +5,65 @@ on:
     types: [opened, edited, labeled]
 
 jobs:
+  auto-label:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      ISSUE_NUMBER: ${{ github.event.issue.number }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+    steps:
+      - name: Get Issue Details
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: env.ISSUE_NUMBER
+            }).then(result => {
+              const issueTitle = result.data.title;
+              const issueBody = result.data.body;
+              const prompt = `Title: ${issueTitle}\n\n${issueBody}`; // Combine title and body
+
+              // Make API call to OpenAI
+              const openaiResponse = await fetch('https://api.openai.com/v1/completions', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + env.OPENAI_API_KEY
+                },
+                body: JSON.stringify({
+                  'model': 'gpt-4o-mini',
+                  'prompt': prompt, // Send combined title and body
+                  'max_completion_tokens': 10000
+                })
+              });
+
+              function getLabelFromOpenAIResponse(response) {
+                const labels = ["bug", "chore/refactor", "compatibility", "component-specific", "documentation", "duplicate", "enhancement", "performance", "ui/ux"];
+                const responseLower = response.toLowerCase();
+                for (const label of labels) {
+                  if (responseLower.includes(label)) {
+                    return label;
+                  }
+                }
+                return 'enhancement'; // default label
+              }
+
+              const openaiData = await openaiResponse.json();
+              const label = getLabelFromOpenAIResponse(openaiData.choices[0].text);
+              // Assign label to issue
+              github.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: env.ISSUE_NUMBER,
+                labels: [label]
+              });
+            });
+
+
   greet-issue-creator:
     permissions: write-all
     runs-on: ubuntu-latest
@@ -15,12 +74,12 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: "3.x"
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: "18"
 
       - name: Install dependencies
         run: |
