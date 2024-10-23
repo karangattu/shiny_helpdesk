@@ -77,10 +77,9 @@ Also, let them know these answers are AI generated and can have errors. -
     time.sleep(12)  # required since we are streaming responses
     message_contents = page.query_selector_all(".message-content")
     last_message_content = message_contents[-1].text_content()
-    # remove Run app → from last_message_content
-    last_message_content = last_message_content.replace("Run app →", "").strip()
-    # add ```python in the line after app.py
     formatted_content = format_as_markdown(last_message_content)
+    # # remove Run app → from last_message_content
+    # last_message_content = last_message_content.replace("Run app →", "").strip()
     set_multiline_output("RESPONSE", formatted_content)
     browser.close()
 
