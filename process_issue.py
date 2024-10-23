@@ -78,6 +78,7 @@ Also, let them know these answers are AI generated and can have errors. -
     message_contents = page.query_selector_all(".message-content")
     last_message_content = message_contents[-1].text_content()
     formatted_content = format_as_markdown(last_message_content)
+    print(formatted_content)
     # # remove Run app → from last_message_content
     # last_message_content = last_message_content.replace("Run app →", "").strip()
     set_multiline_output("RESPONSE", formatted_content)
@@ -86,4 +87,3 @@ Also, let them know these answers are AI generated and can have errors. -
 
 with sync_playwright() as playwright:
     run(playwright)
-    print(os.environ["RESPONSE"])  # Print the response for debugging
