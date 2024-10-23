@@ -24,14 +24,14 @@ def format_as_markdown(content):
     for line in lines:
         # Check for the start of a code block
         if line.strip().startswith("app.py"):
-            formatted_lines.append("/`/`/`python")
+            formatted_lines.append("```python")
             in_code_block = True
             continue
 
         # Check for the end of a code block
         if line.strip() == "Run app →":
             if in_code_block:
-                formatted_lines.append("/`/`/`")
+                formatted_lines.append("```")
                 in_code_block = False
             formatted_lines.append(line)
             continue
@@ -80,8 +80,10 @@ Also, let them know these answers are AI generated and can have errors. -
     formatted_content = format_as_markdown(last_message_content)
     # remove Run app → from last_message_content
     last_message_content = last_message_content.replace("Run app →", "").strip()
+    # write it to a file
+    with open("output.md", "w") as f:
+        f.write(formatted_content)
     set_multiline_output("RESPONSE", formatted_content)
-    print(formatted_content)
     browser.close()
 
 
