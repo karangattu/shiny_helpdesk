@@ -86,3 +86,4 @@ Also, let them know these answers are AI generated and can have errors. -
 
 with sync_playwright() as playwright:
     run(playwright)
+    print(os.environ["RESPONSE"])  # Print the response for debugging
