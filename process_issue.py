@@ -5,7 +5,8 @@ import uuid
 
 
 def set_multiline_output(name, value):
-    with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+    env_file = os.getenv('GITHUB_ENV')
+    with open(env_file, "a") as fh:
         delimiter = uuid.uuid1()
         print(f"{name}<<{delimiter}", file=fh)
         print(value, file=fh)
@@ -33,8 +34,8 @@ Also, let them know these answers are AI generated and can have errors -
     time.sleep(12)  # required since we are streaming responses
     message_contents = page.query_selector_all(".message-content")
     last_message_content = message_contents[-1].text_content()
-    print(last_message_content)
-    set_multiline_output("response", last_message_content)
+    # print(last_message_content)
+    set_multiline_output("RESPONSE", last_message_content)
     browser.close()
 
 
