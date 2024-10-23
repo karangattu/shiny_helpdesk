@@ -18,16 +18,17 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            github.issues.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: env.ISSUE_NUMBER
-            }).then(result => {
+            async function autoLabelIssue() {
+              const result = await github.issues.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: env.ISSUE_NUMBER
+              });
+
               const issueTitle = result.data.title;
               const issueBody = result.data.body;
-              const prompt = `Title: ${issueTitle}\n\n${issueBody}`; // Combine title and body
+              const prompt = `Title: ${issueTitle}\n\n${issueBody}`;
 
-              // Make API call to OpenAI
               const openaiResponse = await fetch('https://api.openai.com/v1/completions', {
                 method: 'POST',
                 headers: {
@@ -36,7 +37,7 @@ jobs:
                 },
                 body: JSON.stringify({
                   'model': 'gpt-4o-mini',
-                  'prompt': prompt, // Send combined title and body
+                  'prompt': prompt,
                   'max_completion_tokens': 10000
                 })
               });
@@ -49,19 +50,21 @@ jobs:
                     return label;
                   }
                 }
-                return 'enhancement'; // default label
+                return 'enhancement';
               }
 
               const openaiData = await openaiResponse.json();
               const label = getLabelFromOpenAIResponse(openaiData.choices[0].text);
-              // Assign label to issue
-              github.issues.update({
+
+              await github.issues.update({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: env.ISSUE_NUMBER,
                 labels: [label]
               });
-            });
+            }
+
+            autoLabelIssue();
 
 
   greet-issue-creator:
