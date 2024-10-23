@@ -2,7 +2,7 @@ name: Issue Greeter
 
 on:
   issues:
-    types: [opened]
+    types: [opened, edited, labeled]
 
 jobs:
   greet-issue-creator:
@@ -38,6 +38,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
+            echo ${{ steps.process-description.outputs.response }}
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
