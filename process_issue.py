@@ -37,9 +37,9 @@ Also, let them know these answers are AI generated and can have errors. -
     # remove Run app → from last_message_content
     last_message_content = last_message_content.replace("Run app →", "").strip()
     # add ```python in the line after app.py
-    last_message_content = last_message_content.replace("app.py", "app.py\n```python")
+    last_message_content = last_message_content.replace("app.py", "app.py\n```\n")
     # add ``` in the end after app = App(app_ui, server)
-    last_message_content = last_message_content.replace("app = App(app_ui, server)", "app = App(app_ui, server)\n```")
+    last_message_content = last_message_content.replace("app = App(app_ui, server)", "app = App(app_ui, server)\n```\n")
     set_multiline_output("RESPONSE", last_message_content)
     browser.close()
 
