@@ -26,7 +26,7 @@ def run(playwright: Playwright):
     page.get_by_role("textbox", name="Enter a message...").fill(
         f"""
 Help me with answer this customer query. Respond like a professional support agent and say when you don't have any answer instead of providing an incorrect one.
-Also, let them know these answers are AI generated and can have errors. Provide your responses in a markdown format -
+Also, let them know these answers are AI generated and can have errors. -
 {ISSUE_BODY}
 """
     )
@@ -36,6 +36,10 @@ Also, let them know these answers are AI generated and can have errors. Provide 
     last_message_content = message_contents[-1].text_content()
     # remove Run app → from last_message_content
     last_message_content = last_message_content.replace("Run app →", "").strip()
+    # add ```python in the line after app.py
+    last_message_content = last_message_content.replace("app.py", "app.py\n```python")
+    # add ``` in the end after app = App(app_ui, server)
+    last_message_content = last_message_content.replace("app = App(app_ui, server)", "app = App(app_ui, server)\n```")
     set_multiline_output("RESPONSE", last_message_content)
     browser.close()
 
