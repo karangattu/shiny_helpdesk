@@ -42,7 +42,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: ${process.env.NAME}
+              body: ${{ steps.process-description.outputs.response }}
             })
-        env:
-          NAME: ${{ steps.process-description.outputs.response }}

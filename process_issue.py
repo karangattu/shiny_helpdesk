@@ -19,6 +19,7 @@ def run(playwright: Playwright):
     page = browser.new_page()
     page.goto("https://gallery.shinyapps.io/assistant")
     page.get_by_label("Python").check()
+    time.sleep(2)  # wait for the page to load
     page.get_by_role("textbox", name="Enter a message...").click()
     page.get_by_role("textbox", name="Enter a message...").fill(
         f"""
