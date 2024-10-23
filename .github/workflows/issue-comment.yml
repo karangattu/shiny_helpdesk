@@ -24,7 +24,7 @@ jobs:
               issue_number: issueNumber
             });
 
-            const prompt = `Title: ${issue.data.title}\n\n${issue.data.body}`;
+            const prompt = `Tell me what is the best label from the following list ["bug", "chore/refactor", "compatibility", "component-specific", "documentation", "duplicate", "enhancement", "performance", "ui/ux"] that this issue belongs to. Answer with a terse answer please or just give the appropriate label. Title: ${issue.data.title}\n\n${issue.data.body}`;
 
             const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
               method: 'POST',
