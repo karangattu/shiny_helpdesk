@@ -24,7 +24,7 @@ Also, let them know these answers are AI generated and can have errors -
     last_message_content = message_contents[-1].text_content()
     print(last_message_content)
     with open(os.environ['GITHUB_OUTPUT'], 'w') as f:
-        print(response=last_message_content, file=f)
+        print(f"response={last_message_content}", file=f)
     browser.close()
 
 
