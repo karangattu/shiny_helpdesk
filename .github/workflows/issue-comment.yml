@@ -1,8 +1,8 @@
-name: Issue Greeter
+name: Generate AI responses to issues and label them
 
 on:
   issues:
-    types: [opened, edited, labeled]
+    types: [opened]
 
 jobs:
   auto-label:
@@ -51,7 +51,7 @@ jobs:
               labels: [label]
             });
 
-  greet-issue-creator:
+  ai-response-comment:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:

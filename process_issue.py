@@ -68,7 +68,7 @@ def run(playwright: Playwright):
     page.get_by_role("textbox", name="Enter a message...").click()
     page.get_by_role("textbox", name="Enter a message...").fill(
         f"""
-Help me with answer this customer query. Respond like a professional support agent and say when you don't have any answer instead of providing an incorrect one.
+Help me with answer this customer query. Respond like a professional support agent.
 Also, let them know these answers are AI generated and can have errors. -
 {ISSUE_BODY}
 """
