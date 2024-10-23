@@ -44,7 +44,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const body = fs.readFileSync('output.md', 'utf8');
+            const body = github.actions.readPath('output.md');
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
