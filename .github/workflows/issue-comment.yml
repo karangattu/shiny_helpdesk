@@ -6,66 +6,50 @@ on:
 
 jobs:
   auto-label:
-    permissions: write-all
+    permissions:
+      issues: write
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      ISSUE_NUMBER: ${{ github.event.issue.number }}
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-
     steps:
-      - name: Get Issue Details
+      - name: Auto Label Issue
         uses: actions/github-script@v7
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            async function autoLabelIssue() {
-              const result = await github.issues.get({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: env.ISSUE_NUMBER
-              });
+            const issueNumber = context.issue.number;
+            const issue = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber
+            });
 
-              const issueTitle = result.data.title;
-              const issueBody = result.data.body;
-              const prompt = `Title: ${issueTitle}\n\n${issueBody}`;
+            const prompt = `Title: ${issue.data.title}\n\n${issue.data.body}`;
 
-              const openaiResponse = await fetch('https://api.openai.com/v1/completions', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': 'Bearer ' + env.OPENAI_API_KEY
-                },
-                body: JSON.stringify({
-                  'model': 'gpt-4o-mini',
-                  'prompt': prompt,
-                  'max_completion_tokens': 10000
-                })
-              });
+            const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+              },
+              body: JSON.stringify({
+                model: 'gpt-4',
+                messages: [{ role: 'user', content: prompt }],
+                max_tokens: 50
+              })
+            });
 
-              function getLabelFromOpenAIResponse(response) {
-                const labels = ["bug", "chore/refactor", "compatibility", "component-specific", "documentation", "duplicate", "enhancement", "performance", "ui/ux"];
-                const responseLower = response.toLowerCase();
-                for (const label of labels) {
-                  if (responseLower.includes(label)) {
-                    return label;
-                  }
-                }
-                return 'enhancement';
-              }
+            const openaiData = await openaiResponse.json();
+            const labels = ["bug", "chore/refactor", "compatibility", "component-specific", "documentation", "duplicate", "enhancement", "performance", "ui/ux"];
+            const responseLower = openaiData.choices[0].message.content.toLowerCase();
+            const label = labels.find(l => responseLower.includes(l)) || 'enhancement';
 
-              const openaiData = await openaiResponse.json();
-              const label = getLabelFromOpenAIResponse(openaiData.choices[0].text);
-
-              await github.issues.update({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: env.ISSUE_NUMBER,
-                labels: [label]
-              });
-            }
-
-            autoLabelIssue();
-
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              labels: [label]
+            });
 
   greet-issue-creator:
     permissions: write-all
