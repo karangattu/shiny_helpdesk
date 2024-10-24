@@ -75,11 +75,10 @@ jobs:
           playwright install chromium --with-deps
 
       - name: Process issue description
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          ISSUE_BODY: ${{ github.event.issue.body }}
         id: process-description
-        run: python process_issue.py     
+        run: python process_issue.py
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
 
       - name: Read output.md file
         id: read-output

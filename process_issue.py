@@ -3,23 +3,6 @@ import time
 import uuid
 
 from playwright.sync_api import Playwright, sync_playwright
-from openai import OpenAI
-
-
-def format_response_markdown(response):
-    # Initialize OpenAI client
-    client = OpenAI()
-    messages = (
-        [
-            {"role": "system", "content": "Return this response in a markdown format"},
-            {"role": "user", "content": response},
-        ],
-    )
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=messages,
-    )
-    return response.choices[0].message.content
 
 
 def set_multiline_output(name, value):
@@ -41,7 +24,7 @@ def format_as_markdown(content):
 
     for line in lines:
         # Check for the start of a code block
-        if line.strip().startswith("app.py") or line.strip().startswith("app_core.py"):
+        if line.strip().startswith("app.py"):
             formatted_lines.append("```python")
             in_code_block = True
             continue
@@ -97,7 +80,7 @@ Also, let them know these answers are AI generated and can have errors when prov
     time.sleep(12)  # required since we are streaming responses
     message_contents = page.query_selector_all(".message-content")
     last_message_content = message_contents[-1].text_content()
-    formatted_content = format_response_markdown(last_message_content)
+    formatted_content = format_as_markdown(last_message_content)
     # remove Run app → from formatted_content
     formatted_content = formatted_content.replace("Run app →", "")
     # write it to a file
