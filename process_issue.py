@@ -69,8 +69,9 @@ def run(playwright: Playwright):
     page.get_by_role("textbox", name="Enter a message...").click()
     page.get_by_role("textbox", name="Enter a message...").fill(
         f"""
-Help me with answer this customer query. Respond like a professional support agent.
+Help me with answer this customer query. Respond with a terse response.
 If it is a feature request or adding more documentation, just respond that the team will look into it.
+If it is a bug, let them know that the team will investigate it.
 Also, let them know these answers are AI generated and can have errors when providing a response. -
 {ISSUE_BODY}
 """
