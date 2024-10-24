@@ -1,7 +1,8 @@
-from playwright.sync_api import sync_playwright, Playwright
-import time
 import os
+import time
 import uuid
+
+from playwright.sync_api import Playwright, sync_playwright
 
 
 def set_multiline_output(name, value):
