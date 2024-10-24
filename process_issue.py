@@ -13,7 +13,7 @@ def format_response_markdown(response):
         [
             {"role": "system", "content": "Return this response in a markdown format"},
             {"role": "user", "content": response},
-        ],
+        ]
     )
     response = client.chat.completions.create(
         model="gpt-4o-mini",
