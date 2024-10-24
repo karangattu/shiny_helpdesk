@@ -97,7 +97,7 @@ Also, let them know these answers are AI generated and can have errors when prov
     last_message_content = message_contents[-1].text_content()
     formatted_content = convert_response_to_markdown(last_message_content)
     # remove Run app → from formatted_content
-    formatted_content = formatted_content.replace("Run app →", "")
+    formatted_content = formatted_content.replace("Run app", "")
     # remove the first line of formatted_content
     formatted_content = "\n".join(formatted_content.split("\n")[1:])
     # remove the last line of formatted_content
