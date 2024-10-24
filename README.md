@@ -23,7 +23,7 @@ Includes all the crowd favorite responses like:
 ---
 So what is Shiny Helpdesk?
 <details>
-  <summary>Find out how 👇</summary>
+  <summary>Find out 👇</summary>
   
   ### Shiny Helpdesk is simply a GitHub Actions bot that helps you manage your Shiny App issues.
   
