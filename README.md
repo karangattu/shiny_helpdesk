@@ -6,7 +6,7 @@
 
 ---
 
-Create shiny issues and have AI autolabel them based on content; also generate responses to common questions and issues.
+Help is just an issue away!
 ---
 
 Includes all the crowd favorite responses like:
@@ -18,3 +18,16 @@ Includes all the crowd favorite responses like:
 - `I understand your frustration, let me see what I can do.`
 
     And more...
+
+
+---
+So what is Shiny Helpdesk?
+<details>
+  <summary>Find out how 👇</summary>
+  
+  ### Shiny Helpdesk is simply a GitHub Actions bot that helps you manage your Shiny App issues.
+  
+  ## How does it work?
+  - When a new issue is created, the bot will leverage AI to classify the issue with the closest matching label.
+  - The bot will also respond to the issue with some code of the shiny app along with instructions that are specific to that issue.  
+</details>
