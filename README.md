@@ -1,6 +1,6 @@
 # Shiny Helpdesk
 
-![Shiny Helpdesk](support.jpeg)
+![Shiny Helpdesk](shiny_call_center.gif)
 
 ****tring...tring***: Thank you for calling `Shiny`, how may I help you?
 
