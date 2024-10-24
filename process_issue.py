@@ -6,15 +6,13 @@ from playwright.sync_api import Playwright, sync_playwright
 from openai import OpenAI
 
 
-def format_response_markdown(response):
+def convert_response_to_markdown(response):
     # Initialize OpenAI client
     client = OpenAI()
-    messages = (
-        [
-            {"role": "system", "content": "Return this response in a markdown format"},
-            {"role": "user", "content": response},
-        ]
-    )
+    messages = [
+        {"role": "system", "content": "Return this response in a markdown format"},
+        {"role": "user", "content": response},
+    ]
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=messages,
@@ -97,9 +95,10 @@ Also, let them know these answers are AI generated and can have errors when prov
     time.sleep(12)  # required since we are streaming responses
     message_contents = page.query_selector_all(".message-content")
     last_message_content = message_contents[-1].text_content()
-    formatted_content = format_response_markdown(last_message_content)
+    formatted_content = convert_response_to_markdown(last_message_content)
     # remove Run app → from formatted_content
     formatted_content = formatted_content.replace("Run app →", "")
+    formatted_content = formatted_content.replace("```", "").replace("markdown\n", "", 1)
     # write it to a file
     with open("output.md", "w") as f:
         f.write(formatted_content)
