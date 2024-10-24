@@ -98,7 +98,10 @@ Also, let them know these answers are AI generated and can have errors when prov
     formatted_content = convert_response_to_markdown(last_message_content)
     # remove Run app → from formatted_content
     formatted_content = formatted_content.replace("Run app →", "")
-    formatted_content = formatted_content.replace("```", "").replace("markdown\n", "", 1)
+    # remove the first line of formatted_content
+    formatted_content = "\n".join(formatted_content.split("\n")[1:])
+    # remove the last line of formatted_content
+    formatted_content = "\n".join(formatted_content.split("\n")[:-1])
     # write it to a file
     with open("output.md", "w") as f:
         f.write(formatted_content)
