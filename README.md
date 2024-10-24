@@ -6,7 +6,7 @@
 
 ---
 
-Create shiny issues and get AI responses on GitHub
+Create shiny issues and have AI autolabel them based on content; also generate responses to common questions and issues.
 ---
 
 Includes all the crowd favorite responses like:
