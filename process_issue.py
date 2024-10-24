@@ -71,7 +71,7 @@ def run(playwright: Playwright):
         f"""
 Help me with answer this customer query. Respond with a terse response.
 If it is a feature request or adding more documentation, just respond that the team will look into it.
-If it is a bug, let them know that the team will investigate it.
+If it is a bug, check if they have provided all necessary information for reproducing the bug. If not ask them for missing information. Also, let them know that the team will investigate it.
 Also, let them know these answers are AI generated and can have errors when providing a response. -
 {ISSUE_BODY}
 """
