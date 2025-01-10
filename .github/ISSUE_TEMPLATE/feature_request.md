@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
+about: Suggest an idea/feature for py-shiny
 title: "[FEATURE REQUEST] - Add your request here"
 labels: ''
 assignees: ''
