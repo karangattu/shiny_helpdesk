@@ -1,0 +1,148 @@
+name: Bug Report
+description: Report a bug in Shiny for Python
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug report! Please fill out this form as completely as possible.
+        
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Which part of Shiny for Python is affected?
+      options:
+        - UI Components (ui.*)
+        - Server Logic (server.*)
+        - Reactive Programming
+        - Input Bindings
+        - Output Bindings
+        - Session Management
+        - App Deployment
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How severe is this issue?
+      options:
+        - P0 - Critical (App crashes/unusable)
+        - P1 - High (Major feature broken)
+        - P2 - Medium (Feature works with workaround)
+        - P3 - Low (Minor inconvenience)
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Shiny Version
+      description: What version of Shiny for Python are you using?
+      placeholder: ex. 0.5.1
+    validations:
+      required: true
+
+  - type: input
+    id: python-version
+    attributes:
+      label: Python Version
+      description: What version of Python are you using?
+      placeholder: ex. 3.9.7
+    validations:
+      required: true
+
+  - type: textarea
+    id: minimal-example
+    attributes:
+      label: Minimal Reproducible Example
+      description: Please provide a minimal app that demonstrates the issue. This will be automatically formatted into code.
+      placeholder: |
+        from shiny import App, render, ui
+
+        app_ui = ui.page_fluid(
+            # Your UI code here
+        )
+
+        def server(input, output, session):
+            # Your server code here
+            pass
+
+        app = App(app_ui, server)
+      render: python
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: Current Behavior
+      description: A clear description of what actually happens
+      placeholder: When I click the button, the app crashes instead of updating the plot
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: A clear description of what you expected to happen
+      placeholder: The plot should update with new data when the button is clicked
+    validations:
+      required: true
+
+  - type: textarea
+    id: error-messages
+    attributes:
+      label: Error Messages
+      description: Please copy and paste any relevant error messages or tracebacks
+      render: shell
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: |
+        Please provide details about your environment
+      value: |
+        - Operating System:
+        - Browser:
+        - Key Dependencies (with versions):
+          - pandas:
+          - numpy:
+          - plotly:
+          - matplotlib:
+          - other relevant packages:
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem here (e.g., browser console logs, screenshots)
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our Code of Conduct
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Final Checks
+      description: Before submitting, please make sure you've completed these checks
+      options:
+        - label: I have searched for similar issues in the repository
+        - label: I have tested with the latest version of Shiny for Python
+        - label: I have included a minimal reproducible example

@@ -1,0 +1,173 @@
+name: Feature Request
+description: Suggest an idea for Shiny for Python
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to suggest a new feature! Please fill out this form as completely as possible.
+        
+  - type: dropdown
+    id: feature-category
+    attributes:
+      label: Feature Category
+      description: What area of Shiny for Python would this feature enhance?
+      options:
+        - UI Components
+        - Reactive Programming
+        - Input Handlers
+        - Output Handlers
+        - App Deployment
+        - Development Tools
+        - Performance
+        - Testing Framework
+        - Integration with Other Libraries
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: feature-scope
+    attributes:
+      label: Feature Scope
+      description: How would you categorize this feature?
+      options:
+        - Major Feature (New component/system)
+        - Minor Enhancement (Improvement to existing feature)
+        - Quality of Life (Small improvement)
+        - Experimental (Novel idea/concept)
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-description
+    attributes:
+      label: Problem Description
+      description: What problem would this feature solve? Please describe.
+      placeholder: |
+        Ex: I'm always frustrated when [...] because [...]
+        
+        Current workaround: [...]
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the solution you'd like
+      placeholder: |
+        A clear and concise description of what you want to happen.
+        
+        Potential API design:
+        ```python
+        from shiny import ui
+        
+        # Your example code here
+        ui.new_component(...)
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternative-solutions
+    attributes:
+      label: Alternative Solutions
+      description: Describe alternatives you've considered
+      placeholder: |
+        What alternative solutions or features have you considered?
+        Why are they less suitable than your proposed solution?
+
+  - type: textarea
+    id: example-usage
+    attributes:
+      label: Example Usage
+      description: Provide an example of how this feature would be used
+      placeholder: |
+        ```python
+        from shiny import App, ui
+        
+        app_ui = ui.page_fluid(
+            # Example usage of your feature
+            ui.your_new_feature(
+                param1="value1",
+                param2="value2"
+            )
+        )
+        ```
+      render: python
+
+  - type: textarea
+    id: expected-impact
+    attributes:
+      label: Expected Impact
+      description: How would this feature benefit the Shiny for Python community?
+      placeholder: |
+        - Who would use this feature?
+        - What use cases would it enable?
+        - How would it improve the development experience?
+
+  - type: textarea
+    id: implementation-considerations
+    attributes:
+      label: Implementation Considerations
+      description: Any thoughts on how this could be implemented?
+      placeholder: |
+        - Technical considerations
+        - Potential challenges
+        - Dependencies required
+        - Impact on existing features
+
+  - type: dropdown
+    id: implementation-complexity
+    attributes:
+      label: Estimated Implementation Complexity
+      description: How complex do you think this feature would be to implement?
+      options:
+        - Simple (Few files, minimal changes)
+        - Moderate (Multiple files, some complexity)
+        - Complex (Significant changes, careful design needed)
+        - Unknown
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: preliminary-checks
+    attributes:
+      label: Preliminary Checks
+      description: Please confirm the following
+      options:
+        - label: I have searched for similar feature requests
+          required: true
+        - label: This feature would be useful to other users
+          required: true
+        - label: I'm willing to participate in feature discussions
+          required: true
+
+  - type: dropdown
+    id: contribution-interest
+    attributes:
+      label: Implementation Interest
+      description: Would you be interested in helping implement this feature?
+      options:
+        - Yes, I'd like to implement it
+        - Yes, I can help review/test
+        - No, I'm just suggesting
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other context, screenshots, or examples about the feature request here
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this feature request, you agree to follow our Code of Conduct
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

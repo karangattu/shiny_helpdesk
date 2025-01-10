@@ -1,0 +1,130 @@
+name: Documentation Issue
+description: Report a documentation issue or suggest improvements
+title: "[Docs]: "
+labels: ["documentation", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve Shiny for Python's documentation! Please provide as much detail as possible about the documentation issue or suggestion.
+
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: Documentation Type
+      description: What type of documentation issue is this?
+      options:
+        - API Reference
+        - Tutorials/Guides
+        - Examples Gallery
+        - Getting Started
+        - Conceptual Guides
+        - Function Docstrings
+        - Code Comments
+        - Installation Instructions
+        - Deployment Guides
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: doc-location
+    attributes:
+      label: Documentation Location
+      description: Where is the documentation you're referring to? (URL or file path)
+      placeholder: "e.g., https://shiny.rstudio.com/py/docs/reactive-programming.html or shiny/ui/__init__.py"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Issue Type
+      description: What kind of documentation issue is this?
+      options:
+        - Missing Documentation
+        - Incorrect Information
+        - Unclear Explanation
+        - Outdated Content
+        - Broken Links/References
+        - Code Example Issue
+        - Grammar/Typo
+        - Translation Issue
+        - Enhancement Suggestion
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-content
+    attributes:
+      label: Current Content
+      description: If applicable, what does the current documentation say?
+      placeholder: Please paste the relevant current documentation text here...
+
+  - type: textarea
+    id: suggested-content
+    attributes:
+      label: Suggested Changes
+      description: What changes would you like to see?
+      placeholder: |
+        Please provide your suggested improvements or new content here.
+        For code examples, they will be automatically formatted:
+
+        ```python
+        from shiny import App, ui
+        # Your example code here
+        ```
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why is this change needed? How will it help users?
+      placeholder: Explain why this documentation improvement would be valuable...
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other context or screenshots about the documentation request
+
+  - type: input
+    id: shiny-version
+    attributes:
+      label: Shiny Version
+      description: Which version of Shiny for Python are you using? (if relevant)
+      placeholder: ex. 0.5.1
+
+  - type: checkboxes
+    id: preliminary-checks
+    attributes:
+      label: Preliminary Checks
+      description: Please confirm the following
+      options:
+        - label: I have searched existing issues for similar documentation requests
+          required: true
+        - label: I have checked the latest documentation to ensure this hasn't been addressed
+          required: true
+        - label: This is a documentation issue (not a bug report or feature request)
+          required: true
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Would you be interested in helping with this documentation improvement?
+      options:
+        - label: I would be willing to submit a pull request with these changes
+          required: false
+        - label: I would be willing to review proposed changes
+          required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our Code of Conduct
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
