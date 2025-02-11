@@ -1,7 +1,7 @@
 name: Bug Report
 description: Report a bug in Shiny for Python
 title: "[Bug]: "
-labels: ["bug", "needs-triage"]
+labels: ["bug"]
 body:
   - type: markdown
     attributes:
@@ -83,8 +83,8 @@ body:
       label: Behavior
       description: Describe what *is* happening and what you *expected* to happen.
       placeholder: |
-         Current: When I click..., the app freezes.
-         Expected:  The plot should update without freezing.
+        Current: When I click..., the app freezes.
+        Expected:  The plot should update without freezing.
     validations:
         required: true
 
@@ -100,8 +100,8 @@ body:
     attributes:
       label: Environment
       description: |
-        - OS: [e.g., Windows 10, macOS 13.4]
-        - Browser: [e.g., Chrome 114]
+        - OS: [e.g., Windows 10, macOS 15.2]
+        - Browser: [e.g., Chrome 132]
         - Dependencies:  `pip freeze` or `conda list` (especially `shiny`, `pandas`, `numpy`, etc.)
       render: markdown
     validations:
