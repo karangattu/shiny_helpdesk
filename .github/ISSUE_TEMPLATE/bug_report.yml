@@ -43,7 +43,7 @@ body:
     attributes:
       label: Shiny Version
       description: '`shiny --version`'
-      placeholder: ex. 1.0.2
+      placeholder: ex. 1.2.1
     validations:
       required: true
 
