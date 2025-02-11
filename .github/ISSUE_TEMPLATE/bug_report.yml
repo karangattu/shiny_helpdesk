@@ -42,7 +42,7 @@ body:
     id: version
     attributes:
       label: Shiny Version
-      description:  `shiny --version`
+      description: '`shiny --version`'
       placeholder: ex. 1.0.2
     validations:
       required: true
@@ -51,7 +51,7 @@ body:
     id: python-version
     attributes:
       label: Python Version
-      description: `python --version`
+      description: '`python --version`'
       placeholder: ex. 3.10.6
     validations:
       required: true
